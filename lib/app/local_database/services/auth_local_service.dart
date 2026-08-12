@@ -24,10 +24,12 @@ class AuthLocalService {
     required String email,
     required String password,
   }) async {
-    final normalizedEmail = _normalizeEmail(email);
 
+    final normalizedEmail = _normalizeEmail(email);
     if (_usersBox.containsKey(normalizedEmail)) {
+
       throw AuthException('An account with this email already exists');
+
     }
 
     final user = RegisteredUserModel(
@@ -165,7 +167,10 @@ class AuthLocalService {
   }
 
   Future<void> _saveSession(String email) async {
+
     await _sessionBox.put(HiveKeys.isLoggedIn, true);
+
     await _sessionBox.put(HiveKeys.currentUserEmail, email);
+
   }
 }
